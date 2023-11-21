@@ -157,7 +157,8 @@ def evalString(str: String): Option[String] = {
       "";
     }
     else{
-      leftParameter(str, index - 1) + str.charAt(index - 1);
+      val x = leftParameter(str, index - 1) + str.charAt(index - 1);
+      x
     }
   }
 
@@ -166,10 +167,11 @@ def evalString(str: String): Option[String] = {
     if(index + 2 == str.length()){
       str.charAt(index + 1) + "";
     }
-    else if(isOperatorEN(str.charAt(index + 1)) && !isOperator(str.charAt(index))){
+    else if(isOperatorEN(str.charAt(index + 1)) || (str.charAt(index + 1) == '-' && str.charAt(index + 2) == '-') || (!isOperator(str.charAt(index)) && str.charAt(index + 1) == '-') ){
       "";
     } else{
-      str.charAt(index + 1) + rightParameter(str, index + 1);
+      val x = str.charAt(index + 1) + rightParameter(str, index + 1);
+      x
     }
   }
 
@@ -332,8 +334,8 @@ def shapeArea(): Unit =
     case 6 => println("Area: " + Circle().calcArea())
     case 7 => return
 
+
 @main def main: Unit =
-  //println(evalString("(5 + 2 * (6%4) + 7) - 2 * (3-8)"))
   var looping = true
   while looping do
     main_menu match
@@ -341,3 +343,4 @@ def shapeArea(): Unit =
       case 2 => shapeArea()
       case 3 => looping = false
       case _ => println("Invalid option selected")
+
